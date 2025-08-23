@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@import "./../styles/_variables.css"; 
+@import "./../styles/_keyframe-animations.css";
+
+@font-face {
+  font-family: "CretoDispay";
+  src: url("@/../../../public/Fonts/CreatoDisplay-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "CretoDispay Black";
+  src: url("@/../../../public/Fonts/CreatoDisplay-Black.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: "Not the far east";
+  src: url("@/../../../public/Fonts/Not\ the\ far\ east.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@utility no-scrollbar {
+  @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+}
+
+@theme {
+  --color-primary-dark: #621E21;
+  --color-primary: #B00C13;
+  --color-black: #0D0D0D;
+  --color-grey: #4D4D4D;
+  --color-alert-green-dark: #8FB378;
+  --color-alert-green: #CAE9B7;
+  --color-alert-green-light: #EDFFE1;
+
+  --text-h1: 68px;
+  --text-h2: 56px;
+  --text-h3: 48px;
+  --text-h4: 36px;
+  --text-h5: 22px;
+
+  --text-normal1: 20px;
+  --text-normal2: 18px;
+  --text-normal3: 16px;
+  --text-normal4: 14px;
+
+  --leading-lh24: 24px;
+
+  --font-normal: 400;
+  --font-bold: 700;
+  --font-extra-bold: 800;
+
+  --font-*:initial;
+  --default-font-family:"CretoDispay";
+  --font-creato-black:"CretoDispay Black";
+  --font-not-east:"Not the far east";
+  --leading-normal: 1.2;
+}
+
+@layer base {
+  body {
+    line-height: 1.3;
+    font-weight: 500;
+    overflow-y: auto !important;
+  }
+}

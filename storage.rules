@@ -1,0 +1,53 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Helper: ensure user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Helper: check role under a restaurant’s subcollection
+    function isStaffOrAdmin(restaurantId, userId) {
+      let ref = 
+        /databases/(default)/documents/Restaurants/$(restaurantId)/users/$(userId);
+      let doc = get(ref);
+      return isAuthenticated();
+          // && doc.exists()
+          // && (doc.data.role == 'admin' || doc.data.role == 'staff');
+    }
+
+    // --- Restaurant Assets (logos, covers, featuring images) ---
+    // Path: restaurant_assets/{restaurantId}/{assetType}/{**}
+    match /restaurant_assets/{restaurantId}/{assetType}/{allPaths=**} {
+      // Publicly readable
+      allow read: if true;
+      // Only staff/admin of that restaurant can write
+      allow write: if isStaffOrAdmin(restaurantId, request.auth.uid);
+    }
+
+    // --- Menu Item Images ---
+    // Path: menu_item_images/{restaurantId}/{menuItemId}/{**}
+    match /menu_item_images/{restaurantId}/{menuItemId}/{allPaths=**} {
+      allow read:  if true;
+      allow write: if isStaffOrAdmin(restaurantId, request.auth.uid);
+    }
+
+    // --- User Uploads (e.g. profile pics) ---
+    // Path: user_uploads/{userId}/{**}
+    match /user_uploads/{userId}/{allPaths=**} {
+      allow read, write: if isAuthenticated() 
+                      && request.auth.uid == userId;
+    }
+
+    // --- Blogs under Seasons collection (example) ---
+    match /Seasons/Blogs/{allPaths=**} {
+      allow read, write: if isAuthenticated();
+    }
+
+    // --- Default: deny everything else ---
+    match /{allOtherPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

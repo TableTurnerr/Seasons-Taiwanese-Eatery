@@ -1,0 +1,26 @@
+[
+  {
+    "origin": [
+      "https://seasonseateryhi.com",
+      "https://www.seasonseateryhi.com",
+      "http://localhost:3000",
+      "https://mediumpurple-elephant-584295.hostingersite.com/",
+      "https://staging.tableturnerr.com/",
+      "https://tableturnerr.com/",
+      "https://site.tableturnerr.com/",
+      "https://backend--tableturnerr-com.europe-west4.hosted.app/"
+    ],
+    "method": [
+      "GET",
+      "HEAD",
+      "OPTIONS"
+    ],
+    "responseHeader": [
+      "Authorization",
+      "Content-Type",
+      "X-Firebase-Storage-Version",
+      "X-Firebase-Storage-XSRF"
+    ],
+    "maxAgeSeconds": 3600
+  }
+]

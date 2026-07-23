@@ -1,12 +1,12 @@
 import Image from "next/image";
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 
 import family_tradition from "@/../public/Images/Our_Story_home_page.webp";
 import Link from "next/link";
 
 function Story() {
-	const sectionVariants = {
+	const sectionVariants: Variants = {
 		hidden: { opacity: 0, y: 50 }, // Start hidden, slightly below final position
 		visible: {
 			opacity: 1,

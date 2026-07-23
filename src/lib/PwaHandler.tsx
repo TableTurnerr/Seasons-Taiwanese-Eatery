@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 // Utility function to convert VAPID public key from base64 to Uint8Array
 // This is required by the Push API
-function urlB64ToUint8Array(base64String: string): Uint8Array {
+function urlB64ToUint8Array(base64String: string): Uint8Array<ArrayBuffer> {
 	const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
 	const base64 = (base64String + padding)
 		.replace(/\-/g, "+")

@@ -2,7 +2,7 @@
 
 import React from "react"; // Import React
 import Image, { StaticImageData } from "next/image"; // Import StaticImageData if needed for type safety
-import { motion } from "framer-motion"; // Import motion
+import { motion, type Variants } from "framer-motion"; // Import motion
 
 // Import your images (ensure paths are correct)
 import beef_noodle_soup from "@/../public/Images/Beef noodle soup.webp";
@@ -10,10 +10,9 @@ import Popcorn_Chicken from "@/../public/Images/Popcorn_Chicken.webp";
 import Boiled_Dumplings from "@/../public/Images/Boiled_Dumplings.webp";
 
 import { useIsMobile } from "@/constants/IsMobile";
-import { b } from "framer-motion/client";
 
 // Define animation variants for consistency
-const sectionVariants = {
+const sectionVariants: Variants = {
 	hidden: { opacity: 0, y: 50 }, // Start hidden, slightly below final position
 	visible: {
 		opacity: 1,

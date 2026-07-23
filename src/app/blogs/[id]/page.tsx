@@ -137,43 +137,7 @@ export async function generateMetadata({
 	}
 }
 
-export async function generateStaticParams() {
-	const restaurantId = process.env.NEXT_PUBLIC_FIREBASE_RESTAURANT_ID;
-
-	if (!restaurantId) {
-		console.error(
-			"SERVER: Missing NEXT_PUBLIC_FIREBASE_RESTAURANT_ID. Cannot generate static blog paths for page.tsx.",
-		);
-		return [];
-	}
-
-	try {
-		const blogsRef = collection(db, `Restaurants/${restaurantId}/blogs`);
-		const blogSnapshot = await getDocs(blogsRef);
-
-		if (blogSnapshot.empty) {
-			console.warn(
-				`SERVER: No blogs found for restaurant ID [${restaurantId}] during generateStaticParams.`,
-			);
-			return [];
-		}
-
-		const paths = blogSnapshot.docs.map((doc) => ({
-			id: doc.id,
-		}));
-		console.log(
-			"SERVER: Generated static paths for blogs:",
-			paths.map((p) => p.id),
-		);
-		return paths;
-	} catch (error) {
-		console.error(
-			"SERVER: Error fetching blogs for static paths in page.tsx:",
-			error,
-		);
-		return [];
-	}
-}
+export const dynamic = "force-dynamic";
 
 export default async function BlogPostPage({ params }: { params: Params }) {
 	const { id } = await params;

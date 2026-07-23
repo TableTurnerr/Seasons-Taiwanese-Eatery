@@ -4,8 +4,6 @@ import { db } from "@/firebaseConfig";
 import {
 	doc,
 	getDoc,
-	getDocs,
-	collection,
 	Timestamp,
 } from "firebase/firestore";
 import { notFound } from "next/navigation";
@@ -19,50 +17,7 @@ import "@/components/tiptap-node/paragraph-node/paragraph-node.scss";
 import "@/components/tiptap-templates/simple/simple-editor.scss";
 import { BlogMetadataForClient } from "../BlogDisplayClient";
 
-export async function generateStaticParams(): Promise<{ id: string }[]> {
-	const restaurantId = process.env.NEXT_PUBLIC_FIREBASE_RESTAURANT_ID;
-	console.log(
-		`[EditPage - generateStaticParams] Using Restaurant ID: ${restaurantId}`,
-	);
-
-	if (!restaurantId) {
-		console.error(
-			"[EditPage - generateStaticParams] CRITICAL ERROR: Restaurant ID is not configured.",
-		);
-		return [];
-	}
-
-	try {
-		const blogsCollectionRef = collection(
-			db,
-			`Restaurants/${restaurantId}/blogs`,
-		);
-		const querySnapshot = await getDocs(blogsCollectionRef);
-		console.log(
-			`[EditPage - generateStaticParams] Fetched ${querySnapshot.docs.length} blog documents for restaurant ${restaurantId}.`,
-		);
-
-		if (querySnapshot.empty) {
-			console.warn(
-				`[EditPage - generateStaticParams] No blog documents found for restaurant ${restaurantId}.`,
-			);
-		}
-
-		const params = querySnapshot.docs.map((doc) => {
-			console.log(
-				`[EditPage - generateStaticParams] Found blog ID for static generation: ${doc.id}`,
-			);
-			return { id: doc.id };
-		});
-		return params;
-	} catch (error) {
-		console.error(
-			"[EditPage - generateStaticParams] Error fetching paths from Firestore:",
-			error,
-		);
-		return [];
-	}
-}
+export const dynamic = "force-dynamic";
 
 // Fetches only the blog metadata (including contentDocId) at build time.
 async function getBlogMetadataForEditServer(

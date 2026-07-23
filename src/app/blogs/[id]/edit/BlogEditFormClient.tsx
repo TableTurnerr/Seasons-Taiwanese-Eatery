@@ -10,10 +10,9 @@ import { JSONContent } from '@tiptap/react';
 
 import { SimpleEditor } from '@/components/tiptap-templates/simple/simple-editor';
 import PulsingDotsSpinner from '@/components/Spinner'; 
+import { useRouter } from 'next/navigation';
 import { BlogMetadataForClient } from '../BlogDisplayClient'; 
 
-import { useAuth } from '@/context/AuthContext';
-import { useRouter } from 'next/navigation';
 
 // Utility to convert file to Base64
 const convertFileToBase64 = (file: File): Promise<string> => {
@@ -84,8 +83,6 @@ const BlogEditFormClient: React.FC<BlogEditClientProps> = ({ initialMetadata }) 
   const formRef = useRef<HTMLFormElement>(null);
   const coverImageInputRef = useRef<HTMLInputElement>(null);
   const videoInputRef = useRef<HTMLInputElement>(null);
-  
-  const {user, loading} = useAuth();
   
   useEffect(() => {
     if (initialMetadata) {
@@ -408,13 +405,7 @@ const BlogEditFormClient: React.FC<BlogEditClientProps> = ({ initialMetadata }) 
   }, [error, successMessage, videoError]);
 
 
-  if (loading && !initialMetadata) { // Show global loading if auth is loading and no data yet
-    return <div className="flex justify-center items-center h-screen"><PulsingDotsSpinner/> <p className="ml-2">Loading user...</p></div>;
-  }
-  if (!user && !loading) {
-    router.push('/login'); 
-    return <div className="flex justify-center items-center h-screen"><PulsingDotsSpinner/> <p className="ml-2">Redirecting to login...</p></div>;
-  }
+  // Auth redirect intentionally disabled to keep blog editing accessible.
 
   if (!initialMetadata && !error) { 
     return (

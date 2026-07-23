@@ -24,13 +24,9 @@ import {
 	uploadBytes,
 	deleteObject,
 } from "firebase/storage";
-import { useRouter } from "next/navigation";
 // import { convertFileToBase64 } from "@/lib/tiptap-utils"; // Removed as it's not used
-import { useAuth } from "@/context/AuthContext";
-import Spinner from "@/components/Spinner";
 
 const CreateBlogPage = () => {
-	const router = useRouter();
 	const storage = getStorage();
 
 	const [title, setTitle] = useState<string>("");
@@ -62,8 +58,6 @@ const CreateBlogPage = () => {
 	const [error, setError] = useState<string | null>(null);
 	const [successMessage, setSuccessMessage] = useState<string | null>(null);
 	const [postArchived, setPostArchived] = useState(false);
-
-	const { loading, user } = useAuth();
 
 	const formRef = useRef<HTMLFormElement>(null);
 	const coverImageInputRef = useRef<HTMLInputElement>(null);
@@ -137,7 +131,7 @@ const CreateBlogPage = () => {
 		setVideoUploadProgress(0);
 
 		// Create a temporary identifier for the video path before blog ID is known
-		const tempBlogIdentifier = `new_blog_video_${user?.uid || "anon"}_${Date.now()}`;
+		const tempBlogIdentifier = `new_blog_video_anon_${Date.now()}`;
 		const fileName = `${Date.now()}-${file.name.replace(/\s+/g, "_")}`;
 		const videoPath = `restaurant_assets/${restaurantId}/blog_videos/${tempBlogIdentifier}/${fileName}`;
 
@@ -578,17 +572,7 @@ const CreateBlogPage = () => {
 		],
 	};
 
-	if (loading) {
-		return (
-			<div className="flex justify-center items-center h-screen">
-				<Spinner />
-			</div>
-		);
-	}
-	if (!user && !loading) {
-		router.replace("/login");
-		return null;
-	}
+	// Auth redirect intentionally disabled to keep blog creation accessible.
 
 	return (
 		<div className="p-4 md:p-8 font-creto h-screen overflow-auto flex flex-col bg-gray-50 no-scrollbar">

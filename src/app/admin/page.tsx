@@ -1,13 +1,8 @@
 // src/app/admin/page.tsx
 "use client";
 
-import Spinner from "@/components/Spinner";
 import ThemeButton from "@/components/ThemeBtn";
-import { useAuth } from "@/context/AuthContext";
 import { BellRing } from "@/lib/PwaHandler";
-import { s } from "framer-motion/client";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const SEND_NOTIFICATION_CLOUD_FUNCTION_URL =
@@ -66,20 +61,7 @@ export default function AdminPage() {
 		}
 	};
 
-	const { user, signOutUser } = useAuth();
-	const router = useRouter();
-
-	if (loading) {
-		return (
-			<div className="flex justify-center items-center h-screen">
-				<Spinner />
-			</div>
-		);
-	}
-	if (!user) {
-		router.replace("/login");
-		return null;
-	}
+	// Auth redirect intentionally disabled to keep the admin page accessible.
 
 	return (
 		<div className="min-h-screen flex items-center justify-evenly p-6 gap-[12px]">
@@ -93,13 +75,6 @@ export default function AdminPage() {
 					iconBgColor="bg-black/5"
 					iconBgHoverColor="bg-primary-dark/10"
 					iconColor="text-primary"
-				/>
-				<ThemeButton
-					onClick={signOutUser}
-					text="Signout"
-					textColor="text-white"
-					className="border-primary-dark border-2 bg-primary/70 hover:bg-primary-dark/80"
-					showArrow={false}
 				/>
 			</div>
 			<div className="w-full p-4 rounded-xl shadow-xl border-2 border-primary-dark">

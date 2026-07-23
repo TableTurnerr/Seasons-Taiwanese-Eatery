@@ -3,12 +3,9 @@
 import React, {
 	createContext,
 	useContext,
-	useEffect,
-	useState,
 	ReactNode,
 } from "react";
-import { onAuthStateChanged, User } from "firebase/auth";
-import { auth } from "../firebaseConfig";
+import type { User } from "firebase/auth";
 
 interface AuthContextValue {
 	user: User | null;
@@ -18,10 +15,8 @@ interface AuthContextValue {
 
 const AuthContext = createContext<AuthContextValue>({
 	user: null,
-	loading: true,
-	signOutUser: async () => {
-		throw new Error("signOutUser function not implemented");
-	},
+	loading: false,
+	signOutUser: async () => {},
 });
 
 interface AuthProviderProps {
@@ -29,27 +24,12 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-	const [user, setUser] = useState<User | null>(null);
-	const [loading, setLoading] = useState(true);
-
-	const signOutUser = async () => {
-		try {
-			await auth.signOut();
-			setUser(null);
-		} catch (error) {
-			console.error("Error signing out:", error);
-		}
-	};
-
-	useEffect(() => {
-		// Subscribe once, then update context
-		const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-			setUser(currentUser);
-			setLoading(false);
-		});
-
-		return () => unsubscribe();
-	}, []);
+	// Authentication is intentionally disabled so the site can run without
+	// Firebase Auth configuration. Re-enable the Firebase auth subscription here
+	// before restoring the route guards in the admin and blog editor pages.
+	const user: User | null = null;
+	const loading = false;
+	const signOutUser = async () => {};
 
 	return (
 		<AuthContext.Provider value={{ user, loading, signOutUser }}>

@@ -1,5 +1,4 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
@@ -18,8 +17,8 @@ const clientCredentials = {
 const app = !getApps().length ? initializeApp(clientCredentials) : getApps()[0];
 
 const db = getFirestore(app);
-const auth = getAuth(app);
 const storage = getStorage(app);
 
 
-export { auth, db, storage };
+// Firebase Auth is disabled while the site is publicly accessible.
+export { db, storage };

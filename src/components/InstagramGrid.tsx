@@ -226,7 +226,7 @@ const InstagramGrid: React.FC<InstagramGridProps> = ({ posts }) => {
 
 									<AnimatePresence>
 										{isHovered && post.description && (
-											<motion.p
+											<motion.div
 												className="text-normal4 text-white mb-[5px]"
 												initial={{
 													opacity: 0,
@@ -248,7 +248,7 @@ const InstagramGrid: React.FC<InstagramGridProps> = ({ posts }) => {
 														post.description
 													}
 												/>
-											</motion.p>
+											</motion.div>
 										)}
 									</AnimatePresence>
 								</motion.div>

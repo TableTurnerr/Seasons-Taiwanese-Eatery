@@ -32,9 +32,9 @@ export const BellRing = () => {
 			viewBox="0 0 24 24"
 			fill="none"
 			stroke="#ffffff"
-			stroke-width="2"
-			stroke-linecap="round"
-			stroke-linejoin="round"
+			strokeWidth="2"
+			strokeLinecap="round"
+			strokeLinejoin="round"
 			className="lucide lucide-bell-ring-icon lucide-bell-ring"
 		>
 			<path d="M10.268 21a2 2 0 0 0 3.464 0" />
@@ -54,9 +54,9 @@ export const BellOff = () => {
 			viewBox="0 0 24 24"
 			fill="none"
 			stroke="#ffffff"
-			stroke-width="2"
-			stroke-linecap="round"
-			stroke-linejoin="round"
+			strokeWidth="2"
+			strokeLinecap="round"
+			strokeLinejoin="round"
 			className="lucide lucide-bell-off-icon lucide-bell-off"
 		>
 			<path d="M10.268 21a2 2 0 0 0 3.464 0" />
